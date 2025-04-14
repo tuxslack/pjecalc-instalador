@@ -1,0 +1,47 @@
+# Maintainer:  Bruno Goncalves <bigbruno@gmail.com>
+# Contributor: Fernando Souza  <https://www.youtube.com/@fernandosuporte/>
+
+pkgname=pjecalc-instalador
+pkgver=$(date +%y.%m.%d)
+pkgrel=$(date +%H%M)
+arch=('any')
+license=('GPL')
+url="https://github.com/tuxslack/pjecalc-instalador"
+pkgdesc="Extract and execute Pjecalc in Linux"
+depends=('jre11-openjdk' 'p7zip' 'yad' 'firefox' 'noto-fonts-emoji')
+source=("git+https://github.com/tuxslack/pjecalc-instalador.git")
+md5sums=(SKIP)
+
+
+package() {
+
+    # Verify default folder
+
+    if [ -d "${srcdir}/${pkgname}/${pkgname}" ]; then
+        InternalDir="${srcdir}/${pkgname}/${pkgname}"
+    else
+        InternalDir="${srcdir}/${pkgname}"
+    fi
+
+
+    # Copy files
+
+    if [ -d "${InternalDir}/usr" ]; then
+        cp -r "${InternalDir}/usr" "${pkgdir}/"
+    fi
+
+    if [ -d "${InternalDir}/etc" ]; then
+        cp -r "${InternalDir}/etc" "${pkgdir}/"
+    fi
+
+    if [ -d "${InternalDir}/opt" ]; then
+        cp -r "${InternalDir}/opt" "${pkgdir}/"
+    fi
+
+
+   # Atualize o cache de ícones (se necessário)
+
+   # gtk-update-icon-cache
+
+}
+

@@ -1,0 +1,56 @@
+
+
+
+13/04/2025  Fernando Souza  <https://github.com/tuxslack>
+
+
+    * Trocado kdialog por yad para maior compatibilidade com outras interfaces gráficas.
+
+    * Tenta localizar o Java, utilizando o diretório mais provável.
+
+    * Adicionado tratamento de erros.
+
+    * Adicionado logs de instalação e execução.
+
+    * Baixa o arquivo .exe (versão para Windows) do PJeCalc atualizado, diretamente do site oficial.
+
+    * Adicionado um atalho para documentação online do PJeCalc.
+
+      Menu iniciar => Internet => Manual do PJe
+
+      https://pje.csjt.jus.br/manual/index.php/PJE-Calc
+
+    * Traduzido o nome e a descrição do programa (como aparece no menu do sistema) nos arquivos .desktop para alguns idiomas.
+
+
+    * Criado o script /usr/local/bin/verificar_versao_pjecalc.sh para verificar atualização do PJeCalc via cron [FACE DE TESTE]
+
+      - Falta detectar automaticamente a versão do PJeCalc instalada. Função versao_instalada usa o arquivo MANIFEST.MF para extrair a versão.
+      - Usando atualmente o arquivo $HOME/PjeCalc/versao_instalada.txt para verificar versão do PJeCalc instalada.
+
+
+
+23/09/2021 Bruno Goncalves <bigbruno@gmail.com>
+
+	* Criado pjecalc-instalador.
+
+    O pjecalc-instalador é um script desenvolvido pela comunidade do BigLinux que permite 
+aos usuários instalar e executar o PJeCalc, uma ferramenta utilizada para cálculos em 
+processos trabalhistas, diretamente no Linux sem a necessidade do Wine.
+
+    Download do PJeCalc: Após a instalação, o usuário baixa o instalador do PJeCalc no 
+formato .exe diretamente do site oficial do Tribunal Regional do Trabalho.​
+
+https://www.trt8.jus.br/pjecalc-cidadao/instalando-o-pje-calc-cidadao
+
+
+    Execução do instalador: No menu do sistema, o usuário acessa a opção 
+"Instalar ou remover o PJeCalc", seleciona o arquivo .exe baixado e executa o instalador. 
+O script cuida de descompactar e configurar o PJeCalc para funcionar no ambiente Linux.​
+
+    Uso do PJeCalc: Após a instalação, o PJeCalc pode ser acessado diretamente pelo menu 
+de programas, permitindo aos usuários realizar os cálculos necessários sem recorrer ao 
+Wine.​
+
+   * Detecção de múltiplas execuções.
+
