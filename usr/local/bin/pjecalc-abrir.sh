@@ -210,43 +210,45 @@ fi
 
 # Mensagem sobre o arquivo de log
 
-yad \
---center \
---title="Sobre o arquivo de Log" \
---window-icon=dialog-warning \
---image="$logo" \
---text="
+
+echo "
 O arquivo de log será criado em:
 
-<b>$log</b>
+$log
 
 Ele será responsável por identificar possíveis problemas com o programa PJeCalc.
 
 Em caso de erro, o arquivo de log deverá ser enviado para análise.
 
+----------------------------------------------------
 PJe Office + PJeCalc + Navegador = Tudo se conecta.
+----------------------------------------------------
 
-Obs: Oficialmente o PJeCalc é compatível apenas com o Firefox - pelo menos quando integrado com o 
-PJe Office e o sistema de cálculo da Justiça do Trabalho.
 
-O PJeCalc em si é uma aplicação Java independente, usada para fazer cálculos trabalhistas e gerar documentos. No entanto, ele frequentemente depende do PJe Office, que é o módulo de autenticação com certificado digital, necessário para funcionar em conjunto com o sistema PJe (Processo Judicial Eletrônico).
+Obs: Oficialmente o PJeCalc é compatível apenas com o Firefox - pelo menos quando integrado com o PJe Office e o sistema de cálculo da 
+Justiça do Trabalho.
+
+O PJeCalc em si é uma aplicação Java independente, usada para fazer cálculos trabalhistas e gerar documentos. No entanto, ele frequentemente 
+depende do PJe Office, que é o módulo de autenticação com certificado digital, necessário para funcionar em conjunto com o sistema PJe 
+(Processo Judicial Eletrônico).
 
 Por que Firefox?
 
-    O PJe Office é homologado oficialmente só para o Firefox.
+   - O PJe Office é homologado oficialmente só para o Firefox.
 
-    O Firefox ainda permite (em parte) o uso de integrações por socket (ex: via localhost:9999) que outros navegadores como Chrome e Edge bloqueiam ou restringem.
+   - O Firefox ainda permite (em parte) o uso de integrações por socket (ex: via localhost:9999) que outros navegadores como Chrome e Edge 
+bloqueiam ou restringem.
 
-    Os tribunais, como o TRT, normalmente só testam e dão suporte oficial ao Firefox.
+   - Os tribunais, como o TRT, normalmente só testam e dão suporte oficial ao Firefox.
 
 
 E se usar outro navegador?
 
-    Pode até conseguir abrir o PJeCalc.
+   - Pode até conseguir abrir o PJeCalc.
 
-    Mas a comunicação com o PJe Office e a assinatura digital geralmente não funciona.
+   - Mas a comunicação com o PJe Office e a assinatura digital geralmente não funciona.
 
-    Vai falhar na hora de validar certificado, assinar documentos ou transmitir os dados de volta ao sistema PJe.
+   - Vai falhar na hora de validar certificado, assinar documentos ou transmitir os dados de volta ao sistema PJe.
 
 Se você quiser rodar o PJeCalc de forma offline, sem ligação com navegador ou certificado, aí qualquer navegador serve — ou nenhum! Só o Java.
 
@@ -261,11 +263,19 @@ O que funciona no modo offline:
 ❌ Enviar para o sistema PJe automaticamente
 
 " \
+| yad \
+--center \
+--title="Sobre o arquivo de Log" \
+--image="$logo" \
+--window-icon=dialog-warning \
+--text-info \
 --buttons-layout="center" \
 --button=OK:0 \
---width="800" \
---height="200" \
+--width="1200" \
+--height="800" \
 2>/dev/null
+
+
 
 # ----------------------------------------------------------------------------------------
 
