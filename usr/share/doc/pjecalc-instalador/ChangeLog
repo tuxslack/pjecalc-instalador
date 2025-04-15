@@ -1,7 +1,7 @@
 
 
 
-13/04/2025  Fernando Souza  <https://github.com/tuxslack>
+15/04/2025  Fernando Souza  <https://github.com/tuxslack>
 
 
     * Trocado kdialog por yad para maior compatibilidade com outras interfaces gráficas.
@@ -22,6 +22,13 @@
 
     * Traduzido o nome e a descrição do programa (como aparece no menu do sistema) nos arquivos .desktop para alguns idiomas.
 
+    * Corrigida a tela "Sobre o arquivo de log" (textos com mais de 1.732 caracteres podem não ser exibidos por completo ao usar --text).
+
+      - /usr/local/bin/pjecalc-abrir.sh
+
+    * Adicionado arquivo /usr/share/doc/pjecalc-instalador/LICENSE
+
+      - Licença MIT
 
     * Criado o script /usr/local/bin/verificar_versao_pjecalc.sh para verificar atualização do PJeCalc via cron [FACE DE TESTE]
 

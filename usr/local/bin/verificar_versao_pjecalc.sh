@@ -4,7 +4,7 @@
 #
 # Data:     13/04/2025 as 17:36:18
 # Homepage: https://github.com/tuxslack/pjecalc-instalador
-# Licença:  GPL
+# Licença:  MIT
 
 
 # Execução agendada (cron)

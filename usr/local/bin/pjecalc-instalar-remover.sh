@@ -7,7 +7,7 @@
 #
 # Data:     13/04/2025 as 17:36:18
 # Homepage: https://github.com/tuxslack/pjecalc-instalador
-# Licença:  GPL
+# Licença:  MIT
 #
 #
 #    * Trocado kdialog por yad para maior compatibilidade com outras interfaces gráficas.
