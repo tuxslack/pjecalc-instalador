@@ -161,6 +161,13 @@ Obs: Não funcionou no Big Linux 64 bit com Java 24.0.1 (openjdk).
       - Criado o arquivo limpeza-navegadores.desktop
 
 
+	* Adicionado atalho para o Curso de PJe-Calc
+
+      - Criado o arquivo /usr/share/applications/Curso de PJe-Calc.desktop
+
+      - https://www.trt8.jus.br/pjecalc-cidadao/curso-de-pje-calc
+
+
 
 23/09/2021 Bruno Goncalves <bigbruno@gmail.com>
 
