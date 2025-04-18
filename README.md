@@ -1,5 +1,7 @@
 # pjecalc-instalador
 
+![Screenshot do PJeCalc no Void Linux](https://github.com/tuxslack/pjecalc-instalador/blob/c5879228eae8525c088b02cc2b2b65064b4651b5/usr/share/doc/pjecalc-instalador/tela-inicial_2025-04-17_00-10-25.png) 
+
 Script que descompacta o .exe do PJeCalc e o faz funcionar no Linux sem precisar do Wine.
 
 
