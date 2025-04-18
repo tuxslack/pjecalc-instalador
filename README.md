@@ -14,7 +14,78 @@ Verifique se o firewall está bloqueando a porta usada pelo PJeCalc.
 
 
 
-Dependências: jre11-openjdk, p7zip, yad, firefox, Fonte Noto Color Emoji, gnome-icon-theme
+Dependências: jre-openjdk11, p7zip, yad, firefox, Fonte Noto Color Emoji, gnome-icon-theme
+
+
+Versões de limite do Java:
+
+java >= "11.0.25" e java < "24.0.1"
+
+
+
+Porta do PJe-Calc Cidadão
+
+Procure pelo arquivo "~/PjeCalc/tomcat/conf/server.xml" dentro do diretório onde está instalado o PJe-Calc Cidadão. Na linha 71 (ou procure pelo texto "9257"), mude para outro número, por exemplo "19257". Salve o arquivo, reinicie o computador e inicie o PJe-Calc novamente.
+
+❯ cat -n  ~/PjeCalc/tomcat/conf/server.xml | grep "Connector port=" | grep "HTTP/1.1"
+    71      <Connector port="9257" protocol="HTTP/1.1"
+
+
+
+
+Servidor Apache
+
+Arch Linux:
+
+sudo pacman -Sy tomcat10
+
+sudo systemctl start httpd
+sudo systemctl enable httpd
+
+sudo systemctl restart httpd
+
+
+sudo pacman -Ss tomcat
+
+
+❯ sudo iptables -F
+❯ sudo iptables -X
+❯ sudo iptables -Z
+
+
+❯ sudo iptables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+
+
+Para instalar o netstat no Arch Linux (usando o gerenciador de pacotes pacman)
+
+sudo pacman -S net-tools
+
+netstat -tuln | grep 9257
+
+netstat -a -n
+
+
+Instalar Firefox
+
+Arch Linux:
+
+sudo pacman -Sy firefox
+
+ou
+
+Firefox ESR (64 bit)
+
+https://www.mozilla.org/pt-BR/firefox/all/desktop-esr/linux64/pt-BR/
+
 
 
 Java

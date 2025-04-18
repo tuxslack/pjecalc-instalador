@@ -1,3 +1,4 @@
+#!/usr/bin/env xdg-open
 [Desktop Entry]
 Version=1.0
 Type=Application
@@ -217,6 +218,8 @@ Exec=/usr/local/bin/pjecalc-abrir.sh
 # Entretanto lembre-se que o Pje-Calc só vai rodar neste endereço quando a aplicação Java estiver rodando.
 
 # Exec=xdg-open http://localhost:9257/pjecalc/pages/principal.jsf
+
+
 
 
 # Aqui define a pasta

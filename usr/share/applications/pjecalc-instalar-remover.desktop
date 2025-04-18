@@ -208,7 +208,11 @@ Keywords[zh_TW]=;;;;;
 
 
 
-Icon=vcs-added
+# Icon=vcs-added
+
+Icon=/usr/share/pixmaps/icone_calc.ico
+
+
 
 # Tenta encontrar um terminal em ordem de preferência.
 
