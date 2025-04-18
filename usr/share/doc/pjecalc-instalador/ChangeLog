@@ -144,6 +144,22 @@ Obs: Não funcionou no Big Linux 64 bit com Java 24.0.1 (openjdk).
       https://www.trt8.jus.br/pjecalc-cidadao/tabelas-auxiliares-trt8
 
 
+	* Adicionado os arquivos PDF a documentação para suporte offline.
+
+	  https://www.trt6.jus.br/portal/sites/default/files/documents/manual_do_usuario_-_pje-calc_0.pdf
+      https://www.trt8.jus.br/sites/portal/files/roles/pje-calc/manual_de_instalacao_-_pje-calc_cidadao.pdf
+      https://www.trt1.jus.br/documents/3749788/0/Manual+de+Instala%C3%A7%C3%A3o+do+PJe-Calc+Cidad%C3%A3o/94ca8c2e-4499-834b-b1bc-e55ebff589cd
+
+
+    Fonte:
+
+	https://www.trt1.jus.br/pje/pje-calc-cidadao
+
+
+	* Melhoria no script /usr/local/bin/limpar-navegador.sh
+
+      - Criado o arquivo limpeza-navegadores.desktop
+
 
 
 23/09/2021 Bruno Goncalves <bigbruno@gmail.com>

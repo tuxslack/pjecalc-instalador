@@ -43,5 +43,16 @@ package() {
 
    # gtk-update-icon-cache
 
+
+    # Para garantir que os novos ícones seja exibidos corretamente (atualiza o banco de dados dos programas).
+
+    update-desktop-database /usr/share/applications/
+
+    # update-desktop-database ~/.local/share/applications/
+
+
+    echo "Se o ícone não aparecer, reinicie o ambiente gráfico ou faça logout e login novamente."
+
+
 }
 

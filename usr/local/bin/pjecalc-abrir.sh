@@ -883,7 +883,7 @@ fi
 # ----------------------------------------------------------------------------------------
 
 
-notify-send "PjeCalc" -i "$logo" -t 100000 "\nEm caso de problemas, verifique o arquivo de log: $log. \n"
+notify-send "PjeCalc" -i "$logo" -t 100000 "\nEm caso de problemas, verifique o arquivo de log: $log. \n\nA documentação de ajuda em formato PDF encontra-se na pasta /usr/share/doc/pjecalc-instalador/"
 
 
 # ----------------------------------------------------------------------------------------

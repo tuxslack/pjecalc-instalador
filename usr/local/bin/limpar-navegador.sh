@@ -14,7 +14,12 @@
 # https://www.cyberciti.biz/faq/check-if-a-directory-exists-in-linux-or-unix-shell/
 
 
-clear
+log="/tmp/limpeza_navegadores.log"
+
+logo="/usr/share/pixmaps/limpar-navegadores.svg"
+
+
+
 
 
 echo "🧹 Limpando dados de navegadores...
@@ -58,201 +63,190 @@ Elinks / Lynx	Sem pasta gráfica – navegadores em terminal	Não guardam muito
 "
 
 
-# --------------------------------------------------------------------------------------
+clear
 
-# Firefox
 
-# Verificar se o diretório existe
+rm -Rf "$log" 2> /dev/null
 
-if [ -d "$HOME/.mozilla" ]; then
 
-echo -e "\n🗑️ Limpando o Firefox... \n"
 
-rm -Rf \
-~/.mozilla \
-~/.cache/mozilla
+echo -e "\n🕓 $(date '+%d/%m/%Y %H:%M:%S') - Iniciando limpeza \n\n\n" > "$log"
 
-fi
 
+# ----------------------------------------------------------------------------------------
 
-# --------------------------------------------------------------------------------------
+# Para verificar se os programas estão instalados
 
-# Google Chrome
 
-# Verificar se o diretório existe
+which yad           1> /dev/null 2> /dev/null || { echo "Programa Yad não esta instalado." | tee -a  "$log"    ; exit ; }
 
-if [ -d "$HOME/.config/google-chrome" ]; then
 
-echo -e "\n🗑️ Limpando o Google Chrome... \n"
+verificar_programa() {
 
-rm -Rf \
-~/.config/google-chrome \
-~/.cache/google-chrome
+    if ! which "$1" &> /dev/null; then
 
-fi
 
+        echo  "O programa $1 não está instalado." >> "$log"
 
-# --------------------------------------------------------------------------------------
+        yad --center \
+            --title="Dependência ausente" \
+            --window-icon="$logo" --image="$logo" \
+            --text="O programa <b>$1</b> não está instalado.\n\nInstale-o antes de continuar." \
+            --buttons-layout="center" \
+            --button="OK" \
+            --width="400" 2> /dev/null
 
-# Brave
+        exit 1
+    fi
 
+}
 
-# Verificar se o diretório existe
 
-if [ -d "$HOME/.config/BraveSoftware" ]; then
+# Verificações
 
-echo -e "\n🗑️ Limpando o Brave... \n"
+verificar_programa notify-send
 
-rm -Rf \
-~/.config/BraveSoftware \
-~/.cache/BraveSoftware
+# ----------------------------------------------------------------------------------------
 
-fi
+# Menu com YAD para selecionar múltiplos navegadores
 
-# --------------------------------------------------------------------------------------
+# Quando você usa --radiolist, o primeiro --column precisa ser para o botão de seleção (bool) e depois os dados.
 
-# Chromium
 
+browsers=$(yad --center --list \
+  --title="Limpeza de Navegadores" \
+  --window-icon="$logo" --image="$logo" \
+  --text="Selecione os navegadores que deseja limpar:" \
+  --checklist \
+  --column="Selecionar" --column="Navegador" \
+  TRUE "Firefox" \
+  FALSE "Google Chrome" \
+  FALSE "Brave" \
+  FALSE "Chromium" \
+  FALSE "Opera" \
+  FALSE "Microsoft Edge" \
+  FALSE "Opera GX" \
+  FALSE "Vivaldi" \
+  FALSE "Falkon" \
+  FALSE "Midori" \
+  FALSE "Epiphany (GNOME Web)" \
+  --separator="|" \
+  --buttons-layout="center" \
+  --button="Cancelar":1 \
+  --button="OK":0 \
+  --width="500" --height="700" \
+  2>/dev/null)
 
-# Verificar se o diretório existe
 
-if [ -d "$HOME/.config/chromium" ]; then
+# Cancelar se nada for selecionado.
 
-echo -e "\n🗑️ Limpando o Chromium... \n"
+[ -z "$browser" ] && exit 1
 
-rm -Rf \
-~/.config/chromium \
-~/.cache/chromium
 
-fi
+# Função de limpeza
 
-# --------------------------------------------------------------------------------------
+limpar_navegador() {
 
-# Opera
+  nome="$1"
 
+  dir_config="$2"
 
-# Verificar se o diretório existe
+  dir_cache="$3"
 
-if [ -d "$HOME/.config/opera" ]; then
 
-echo -e "\n🗑️ Limpando o Opera... \n"
+  if [ -d "$dir_config" ] || [ -d "$dir_cache" ]; then
 
-rm -Rf \
-~/.config/opera \
-~/.cache/opera
+    echo -e "\n🗑️ Limpando o $nome... \n"
 
-fi
+    notify-send "Limpando dados de navegadores" -i "$logo" -t 100000 "\n🗑️ Limpando o $nome... \n"
 
-# --------------------------------------------------------------------------------------
+    rm -rf "$dir_config" "$dir_cache"
 
-# Microsoft Edge
 
+  else
 
-# Verificar se o diretório existe
+    echo -e "\n⚠️ $nome não encontrado.\n"
 
-if [ -d "$HOME/.config/microsoft-edge" ]; then
+    notify-send "Limpando dados de navegadores" -i "$logo" -t 100000 "\n⚠️ $nome não encontrado. \n"
 
-echo -e "\n🗑️ Limpando o Microsoft Edge... \n"
+  fi
 
-rm -Rf \
-~/.config/microsoft-edge \
-~/.cache/microsoft-edge
+}
 
 
-fi
+# Separar os navegadores selecionados por |
 
-# --------------------------------------------------------------------------------------
+IFS="|" read -ra selecionados <<< "$browsers"
 
-# Opera GX
 
 
-# Verificar se o diretório existe
+# Laço para limpar cada navegador
 
-if [ -d "$HOME/.config/opera_gx" ]; then
+for browser in "${selecionados[@]}"; do
+  case "$browser" in
 
-echo -e "\n🗑️ Limpando o Opera GX... \n"
+    "Firefox")
+      limpar_navegador "Firefox" "$HOME/.mozilla" "$HOME/.cache/mozilla"
+      ;;
 
-rm -Rf \
-~/.config/opera_gx \
-~/.cache/opera_gx
+    "Google Chrome")
+      limpar_navegador "Google Chrome" "$HOME/.config/google-chrome" "$HOME/.cache/google-chrome"
+      ;;
 
+    "Brave")
+      limpar_navegador "Brave" "$HOME/.config/BraveSoftware" "$HOME/.cache/BraveSoftware"
+      ;;
 
-fi
+    "Chromium")
+      limpar_navegador "Chromium" "$HOME/.config/chromium" "$HOME/.cache/chromium"
+      ;;
 
-# --------------------------------------------------------------------------------------
+    "Opera")
+      limpar_navegador "Opera" "$HOME/.config/opera" "$HOME/.cache/opera"
+      ;;
 
-# Vivaldi
+    "Microsoft Edge")
+      limpar_navegador "Microsoft Edge" "$HOME/.config/microsoft-edge" "$HOME/.cache/microsoft-edge"
+      ;;
 
-# Verificar se o diretório existe
+    "Opera GX")
+      limpar_navegador "Opera GX" "$HOME/.config/opera_gx" "$HOME/.cache/opera_gx"
+      ;;
 
-if [ -d "$HOME/.config/vivaldi" ]; then
+    "Vivaldi")
+      limpar_navegador "Vivaldi" "$HOME/.config/vivaldi" "$HOME/.cache/vivaldi"
+      ;;
 
-echo -e "\n🗑️ Limpando o Vivaldi... \n"
+    "Falkon")
+      limpar_navegador "Falkon" "$HOME/.config/falkon" "$HOME/.cache/falkon"
+      ;;
 
-rm -Rf \
-~/.config/vivaldi \
-~/.cache/vivaldi
+    "Midori")
+      limpar_navegador "Midori" "$HOME/.config/midori" "$HOME/.cache/midori"
+      ;;
 
+    "Epiphany (GNOME Web)")
+      limpar_navegador "Epiphany (GNOME Web)" "$HOME/.config/epiphany" "$HOME/.cache/epiphany"
+      ;;
 
-fi
+    *)
+      echo "Navegador não reconhecido: $browser"
 
+      notify-send "Limpando dados de navegadores" -i "$logo" -t 100000 "\nNavegador não reconhecido: $browser \n"
 
-# --------------------------------------------------------------------------------------
+      ;;
 
-# Falkon
+  esac
+done
 
-# Verificar se o diretório existe
 
-if [ -d "$HOME/.config/falkon" ]; then
-
-echo -e "\n🗑️ Limpando o Falkon... \n"
-
-rm -Rf \
-~/.config/falkon \
-~/.cache/falkon
-
-
-fi
-
-# --------------------------------------------------------------------------------------
-
-# Midori
-
-# Verificar se o diretório existe
-
-if [ -d "$HOME/.config/midori" ]; then
-
-echo -e "\n🗑️ Limpando o Midori... \n"
-
-rm -Rf \
-~/.config/midori \
-~/.cache/midori
-
-
-fi
-
-# --------------------------------------------------------------------------------------
-
-# Epiphany (GNOME Web)
-
-# Verificar se o diretório existe
-
-if [ -d "$HOME/.config/epiphany" ]; then
-
-echo -e "\n🗑️ Limpando o Epiphany (GNOME Web)... \n"
-
-rm -Rf \
-~/.config/epiphany \
-~/.cache/epiphany
-
-
-fi
-
-# --------------------------------------------------------------------------------------
 
 
 
 echo -e "\n✅ Limpeza concluída! \n"
+
+notify-send "Limpando dados de navegadores" -i "$logo" -t 100000 "\n✅ Limpeza concluída! \n"
+
 
 exit 0
 

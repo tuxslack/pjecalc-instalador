@@ -335,7 +335,7 @@ yad --center \
 
                 rm -R "$HOME/PjeCalc" 2>> "$log"
 
-                yad --center --title="$titulo" --window-icon="$logo" --image="$logo" --text="PjeCalc removido!"  --buttons-layout="center" --button=OK --width="400" --height="100" 2>/dev/null
+                yad --center --title="$titulo" --window-icon="$logo" --image="$logo" --text="PjeCalc removido!"  --buttons-layout="center" --button="OK" --width="400" --height="100" 2>/dev/null
 
             fi
 
@@ -459,7 +459,7 @@ mkdir -p ~/.pjecalc-instalando  2>> "$log" || echo -e "\033[1;31m\nFalha ao cria
 
 # Abre o gerenciador de arquivos, define a pasta $HOME como padrão e filtra apenas arquivos .exe.
 
-ARQUIVO=$(yad --center --title="$titulo" --window-icon="$logo" --image="$logo" --file --filename="$HOME/" --file-filter="Arquivos .exe | *.exe" --buttons-layout="center" --width="1200" --height="800"  2>/dev/null)
+ARQUIVO=$(yad --center --title="$titulo" --window-icon="$logo" --image="$logo" --file --filename="$HOME/" --file-filter="Arquivos .exe | *.exe" --buttons-layout="center" --button="Cancelar":1 --button="OK":0 --width="1200" --height="800"  2>/dev/null)
 
 
 # Espaços e acentuação no caminho completo do arquivo precisa ser tratado corretamente — ou seja, entre aspas duplas.
