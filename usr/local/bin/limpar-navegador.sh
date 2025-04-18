@@ -66,12 +66,6 @@ Elinks / Lynx	Sem pasta gráfica – navegadores em terminal	Não guardam muito
 clear
 
 
-rm -Rf "$log" 2> /dev/null
-
-
-
-echo -e "\n🕓 $(date '+%d/%m/%Y %H:%M:%S') - Iniciando limpeza \n\n\n" > "$log"
-
 
 # ----------------------------------------------------------------------------------------
 
@@ -107,6 +101,36 @@ verificar_programa() {
 verificar_programa notify-send
 
 # ----------------------------------------------------------------------------------------
+
+
+yad --center \
+  --title="Utilitário de Limpeza de Navegadores" \
+  --window-icon="$logo" --image="$logo" \
+  --text="<b>Este script remove os dados de configuração e cache dos navegadores selecionados.</b>\n\n⚠️ <b>ATENÇÃO:</b> Esta ação é irreversível e pode resultar na perda de histórico, senhas salvas e outras informações.\n\nUse com responsabilidade." \
+  --button="Cancelar":1 --button="Continuar":0 \
+  --buttons-layout=center \
+  --width="800" --height="100" \
+  2>/dev/null || exit 1
+
+
+# Verificar se o retorno é 1 (cancelado).
+
+[ $? -ne 0 ] && exit 1
+
+# ----------------------------------------------------------------------------------------
+
+# Gerando o arquivo de log.
+
+
+rm -Rf "$log" 2> /dev/null
+
+
+
+echo -e "\n🕓 $(date '+%d/%m/%Y %H:%M:%S') - Iniciando limpeza \n\n\n" > "$log"
+
+
+# ----------------------------------------------------------------------------------------
+
 
 # Menu com YAD para selecionar múltiplos navegadores
 
@@ -145,6 +169,7 @@ browsers=$(yad --center --list \
 
 # Função de limpeza
 
+
 limpar_navegador() {
 
   nome="$1"
@@ -160,7 +185,18 @@ limpar_navegador() {
 
     notify-send "Limpando dados de navegadores" -i "$logo" -t 100000 "\n🗑️ Limpando o $nome... \n"
 
-    rm -rf "$dir_config" "$dir_cache"
+
+    if [ "$fazer_backup" -eq 0 ]; then
+
+      echo "🔒 Criando backup de $nome em $backup_dir" >> "$log"
+
+      [ -d "$dir_config" ] && cp -a "$dir_config" "$backup_dir/"
+
+      [ -d "$dir_cache" ] && cp -a "$dir_cache" "$backup_dir/"
+
+    fi
+
+    rm -rf "$dir_config" "$dir_cache" 2 >> "$log"
 
 
   else
@@ -171,12 +207,34 @@ limpar_navegador() {
 
   fi
 
+
 }
+
 
 
 # Separar os navegadores selecionados por |
 
 IFS="|" read -ra selecionados <<< "$browsers"
+
+
+# ----------------------------------------------------------------------------------------
+
+backup_dir="$HOME/backup_navegadores/$(date '+%Y-%m-%d_%H-%M-%S')"
+
+yad --center \
+  --title="Backup antes da limpeza" \
+  --window-icon="$logo" --image="$logo" \
+  --text="Deseja criar um backup dos dados antes da limpeza?\n\nOs dados serão salvos em:\n<b>$backup_dir</b>" \
+  --buttons-layout=center \
+  --button="Não":1 --button="Sim":0 \
+  --width="500" --height="150" \
+  2>/dev/null
+
+fazer_backup=$?
+
+mkdir -p "$backup_dir"
+
+# ----------------------------------------------------------------------------------------
 
 
 
