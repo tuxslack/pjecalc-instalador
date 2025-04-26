@@ -227,6 +227,14 @@ Obs: O Pje-Calc Cidadão versão 2.13.2 usa Firefox Portable versão 55.0.2 no W
 	* Criado o script /usr/local/bin/firefox-portable-install.sh para instalar o Firefox versão 55.0.2 no Linux para usar o Pje-Calc Cidadão versão 2.13.2.
 
 
+    * Testes realizados com os scripts de instalação mostraram que:
+
+      O Firefox versão 55.0.2, baixado do site https://archive.mozilla.org/, não abre sites no BigLinux.
+
+      O BigLinux, em modo live, não possui a pasta /usr/share/doc, apenas /usr/share/docs.
+
+
+
 
 23/09/2021 Bruno Goncalves <bigbruno@gmail.com>
 
