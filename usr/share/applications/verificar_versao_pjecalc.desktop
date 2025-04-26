@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Verificar atualização para o PJeCalc Cidadão
+Comment=Busca por atualização do PJeCalc Cidadão.
+Exec=/usr/local/bin/verificar_versao_pjecalc.sh
+Icon=/usr/share/pixmaps/icone_calc.ico
+Terminal=true
+Categories=Utility;
+ 

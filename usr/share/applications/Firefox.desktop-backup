@@ -1,0 +1,25 @@
+[Desktop Entry]
+Type=Application
+Name=Firefox
+Name[pt_BR]=Firefox
+GenericName=
+GenericName[pt_BR]=Firefox
+Comment=
+Comment[pt_BR]=
+Icon=/opt/firefox/browser/chrome/icons/default/default128.png
+Exec=firefox
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+MimeType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+Categories=Network;WebBrowser;
+Keywords=firefox;
+
+Actions=SoftwareRender;
+
+[Desktop Action SoftwareRender]
+Name=Software Render
+Exec=SoftwareRender firefox

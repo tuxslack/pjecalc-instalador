@@ -1,197 +1,163 @@
 # pjecalc-instalador
 
-![Screenshot do PJeCalc no Void Linux](https://github.com/tuxslack/pjecalc-instalador/blob/c5879228eae8525c088b02cc2b2b65064b4651b5/usr/share/doc/pjecalc-instalador/tela-inicial_2025-04-17_00-10-25.png) 
+![Screenshot do PJeCalc no Void Linux](https://github.com/tuxslack/pjecalc-instalador/blob/c5879228eae8525c088b02cc2b2b65064b4651b5/usr/share/doc/pjecalc-instalador/tela-inicial_2025-04-17_00-10-25.png)  
 
-![Screenshot do PJeCalc no Void Linux](https://github.com/tuxslack/pjecalc-instalador/blob/609bcf435db5059c684de993c7186af9cb26e0d3/usr/share/doc/pjecalc-instalador/PJeCalc_Void%20Linux_2025-04-16.png) 
+![Screenshot do PJeCalc no Void Linux](https://github.com/tuxslack/pjecalc-instalador/blob/609bcf435db5059c684de993c7186af9cb26e0d3/usr/share/doc/pjecalc-instalador/PJeCalc_Void%20Linux_2025-04-16.png)  
 
-Script que descompacta o .exe do PJeCalc e o faz funcionar no Linux sem precisar do Wine.
+Script que descompacta o `.exe` do **PJeCalc Cidadão** e o faz funcionar no Linux sem precisar do Wine.
 
+---
 
-Instale o pacote pjecalc-instalador, faça o download do PJe Office no formato .exe, abra o instalador pelo menu do sistema, selecione o arquivo .exe e aguarde — a instalação é rápida. Em seguida, basta abrir o PJeCalc pelo menu.
+## Instalação do PJeCalc Cidadão
 
+1. Instale o pacote `pjecalc-instalador`.  
+2. O script ira fazer o download do **PJeCalc Cidadão** no formato `.exe` ou você pode fazer manualmente e salva o arquivo .exe na pasta $HOME.  
+3. Abra o instalador pelo menu do sistema.  
+4. Selecione o arquivo `.exe` e aguarde.  
+   A instalação é rápida.  
+5. Após a instalação, abra o **PJeCalc Cidadão** pelo menu.
 
-É necessário remove a versão instalada para instalar essa versão.
+⚠️ **É necessário remover a versão já instalada para instalar esta versão.**
 
+---
 
+## Verificação do Firewall
 
-Verifique se o firewall está bloqueando a porta usada pelo PJeCalc.
+Verifique se o firewall não está bloqueando a porta usada pelo **PJeCalc Cidadão**.
 
+---
 
+## Dependências do sistema
 
-Dependências: jre-openjdk11, p7zip, yad, firefox, Fonte Noto Color Emoji, gnome-icon-theme
+- **jre-openjdk11**  
+- **p7zip**  
+- **yad**  
+- **firefox**  
+- **Fonte Noto Color Emoji**  
+- **gnome-icon-theme**  
 
+---
 
-Versões de limite do Java:
+## Limitações de versão do Java
 
-java >= "11.0.25" e java < "24.0.1"
+O **PJeCalc Cidadão** suporta as seguintes versões de Java:
+- **java >= "11.0.25"**  
+- **java < "24.0.1"**
 
+---
 
+## Configuração da porta do PJeCalc Cidadão
 
-Porta do PJe-Calc Cidadão
+1. Localize o arquivo `~/PjeCalc/tomcat/conf/server.xml` no diretório onde o **PJeCalc Cidadão** está instalado.
+2. Na linha 71 (ou procure pelo texto `"9257"`), altere para outra porta, por exemplo `"19257"`.
+3. Salve o arquivo, reinicie o computador e inicie o **PJeCalc Cidadão** novamente.
 
-Procure pelo arquivo "~/PjeCalc/tomcat/conf/server.xml" dentro do diretório onde está instalado o PJe-Calc Cidadão. Na linha 71 (ou procure pelo texto "9257"), mude para outro número, por exemplo "19257". Salve o arquivo, reinicie o computador e inicie o PJe-Calc novamente.
+```bash
+$ cat -n ~/PjeCalc/tomcat/conf/server.xml | grep "Connector port=" | grep "HTTP/1.1"
+71      <Connector port="9257" protocol="HTTP/1.1">
+```
 
-❯ cat -n  ~/PjeCalc/tomcat/conf/server.xml | grep "Connector port=" | grep "HTTP/1.1"
-    71      <Connector port="9257" protocol="HTTP/1.1"
-
-
-
-
-Servidor Apache
-
-Arch Linux:
-
-sudo pacman -Sy tomcat10
-
-sudo systemctl start httpd
-sudo systemctl enable httpd
-
-sudo systemctl restart httpd
-
-
-sudo pacman -Ss tomcat
-
-
-❯ sudo iptables -F
-❯ sudo iptables -X
-❯ sudo iptables -Z
-
-
-❯ sudo iptables -L
-Chain INPUT (policy ACCEPT)
-target     prot opt source               destination         
-
-Chain FORWARD (policy ACCEPT)
-target     prot opt source               destination         
-
-Chain OUTPUT (policy ACCEPT)
-target     prot opt source               destination         
+### <span style="color:red;">* Para alguns casos específicos, altera-se a porta (de modo geral, isso não é alterado).</span>
 
 
+## Firewall e comandos úteis
 
-Para instalar o netstat no Arch Linux (usando o gerenciador de pacotes pacman)
+Certifique-se de que o firewall não está bloqueando a porta usada pelo **PJeCalc Cidadão**:
 
-sudo pacman -S net-tools
+```bash
+sudo iptables -F
+sudo iptables -X
+sudo iptables -Z
 
-netstat -tuln | grep 9257
+sudo iptables -L
+```
 
-netstat -a -n
+## Instalando o Firefox
 
-
-Instalar Firefox
-
-Arch Linux:
-
+### Para instalar o navegador Firefox no Arch Linux:
+```bash
 sudo pacman -Sy firefox
+```
+ou 
+
+Baixe e instale o  Firefox ESR (64 bit) no site oficial: [Download](https://www.mozilla.org/pt-BR/firefox/all/desktop-esr/linux64/pt-BR/).
+
+**Firefox Portable 55.0.2** é usado no Windows para abrir o **PJeCalc Cidadão**.
+
+
+Usa o script **/usr/local/bin/firefox-portable-install.sh** para instalar o **Firefox 55.0.2** para Linux.
+
+
+## Configuração de Java
+
+Baixe e instale o Java no site oficial: [Download](https://www.java.com/pt-BR/download/).
+
+### Versões recomendadas:
+- **java >= "11.0.25"**
+- **java < "24.0.1"**
+
+### Arch Linux:
+```bash
+sudo pacman -S jre11-openjdk
+```
+
+
+## Suporte a emojis Unicode
+
+### Arch Linux:
+```bash
+sudo pacman -S noto-fonts-emoji
+```
+
+### Debian:
+```bash
+sudo apt install -y fonts-noto-color-emoji
+```
+### Fedora:
+```bash
+sudo dnf install google-noto-emoji-color-fonts
+```
+
+### Void Linux:
+
+No Void Linux, o pacote **fonts-noto-color-emoji** não está disponível nos repositórios oficiais. Instale a fonte manualmente:
+
+Baixe a  fonte [Noto Color Emoji](https://fonts.google.com/noto/specimen/Noto+Color+Emoji) diretamente do [Google Fonts](https://fonts.google.com/).
+
+Extrair o arquivo **Noto_Color_Emoji.zip** para o diretório ~/.fonts
+
+sudo apt install -y unzip  # Debian/Ubuntu
+sudo pacman -S unzip    # Arch Linux
+sudo dnf install unzip     # Fedora
+
+
+Instale-a:
+
+```bash
+mkdir -p ~/.fonts
+
+unzip -o ~/Downloads/Noto_Color_Emoji.zip -d ~/.fonts
 
 ou
 
-Firefox ESR (64 bit)
-
-https://www.mozilla.org/pt-BR/firefox/all/desktop-esr/linux64/pt-BR/
-
-
-
-Java
-
-https://www.java.com/pt-BR/download/
-
-
-Verifica se sua distribuição Linux tem suporte completo a emojis Unicode.
-
-Arch Linux:
-
-sudo pacman -S noto-fonts-emoji
-
-Debian:
-
-sudo apt install fonts-noto-color-emoji
-
-Fedora:
-
-sudo dnf install google-noto-emoji-color-fonts
-
-
-Void Linux:
-
-No Void Linux, o pacote fonts-noto-color-emoji não está disponível nos repositórios oficiais. No entanto, você pode instalar o Noto Color Emoji, que oferece suporte a emojis coloridos, seguindo os passos abaixo:
-
-Baixar a fonte Noto Color Emoji
-
-Acesse o repositório oficial do projeto no GitHub para obter a fonte:
-
-https://github.com/DeeDeeG/noto-color-emoji-font
-
-Instalar a fonte no sistema
-
-mkdir -p ~/.fonts
-
-mv ~/Downloads/NotoColorEmoji.ttf ~/.fonts/
-
-Atualizar o cache de fontes
+mv ~/Downloads/NotoColorEmoji-Regular.ttf ~/.fonts/
 
 fc-cache -f -v
 
+rm -Rf ~/Downloads/Noto_Color_Emoji.zip
 
-Reiniciar aplicativos ou o sistema
+```
 
-Feche e reabra os aplicativos nos quais deseja utilizar os emojis coloridos. Em alguns casos, pode ser necessário reiniciar o sistema para que as alterações tenham efeito completo.
+## Navegadores recomendados
 
+- **Mozilla Firefox**  
+- **Mozilla Firefox ESR (Extended Support Release)**  
+- **Brave (Use somente este navegador para importar os arquivos para o PJeCalc Cidadão).**  
 
-
-Instala o pacote gnome-icon-theme
-
-
-No Arch Linux e derivados, o pacote gnome-icon-theme está disponível no AUR (Arch User Repository), não nos repositórios oficiais. Para instalá-lo, você pode usar um auxiliar de AUR como o yay.
-
-sudo pacman -S yay
-
-yay -S gnome-icon-theme
-
-
-Debian:
-
-sudo apt update
-
-sudo apt install -y adwaita-icon-theme
+### 🚫 Navegadores com problemas:
+- Google Chrome / Chromium  
+- Microsoft Edge  
+- Opera  
 
 
-Fedora:
-
-sudo dnf install adwaita-icon-theme
-
-
-Void Linux
-
-sudo xbps-install -S adwaita-icon-theme
-
-
-
-Nota:
-
-Compatível com diversas interfaces gráficas no Linux (GNOME, KDE, XFCE etc.) e também com gerenciadores de janelas como OpenBox, FluxBox, i3WM, entre outros.
-
-Evita o uso de comandos específicos de um ambiente de desktop (DE), como konsole, kdialog, zenity, entre outros.
-
-
-Navegadores recomendados para o PJeCalc
-
-    Mozilla Firefox
-
-    Mozilla Firefox ESR (Extended Support Release)
-
-Esses são os mais estáveis e compatíveis com o PJeCalc.
-
-
-🚫 Navegadores que costumam dar problemas
-
-    Google Chrome / Chromium
-
-    Microsoft Edge / Opera / Brave
-
-    Em geral, qualquer navegador baseado no Chromium pode apresentar problemas de compatibilidade.
-
-
-Acesse www.trt8.jus.br/pjecalc-cidadao e saiba mais sobre Sistema de Cálculo Trabalhista desenvolvido pela Secretaria de Tecnologia da Informação do Tribunal Regional do Trabalho da 8ª Região.
-
-
+Acesse o [Sistema de Cálculo Trabalhista](https://www.trt8.jus.br/pjecalc-cidadao) e saiba mais sobre o **PJeCalc Cidadão**, desenvolvido pela Secretaria de Tecnologia da Informação do Tribunal Regional do Trabalho da 8ª Região.

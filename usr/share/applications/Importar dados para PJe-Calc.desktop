@@ -1,0 +1,64 @@
+#!/usr/bin/env xdg-open
+ 
+# Descrição do Problema: 
+
+# A funcionalidade de importação de arquivos locais não abre no gerenciador de arquivo do 
+# KDE (Dolphin) no Firefox 128.9.0 ESR (64 bits). Ao tentar importar um arquivo, o processo 
+# não é iniciado. No entanto, a mesma funcionalidade funciona normalmente ao utilizar o 
+# navegador Brave (versão 1.62.165 - Chromium: 121.0.6167.184, 64 bits) não foi testado em 
+# outros navegadores baseados no Chromium.
+
+
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Importar dados para PJeCalc Cidadão
+Name[pt_BR]=Importar dados para PJeCalc Cidadão
+Name[en]=Import Data into PJe-Calc
+Name[es]=Importar datos en PJe-Calc
+Name[fr]=Importer des données dans PJe-Calc
+
+Comment=Open the PJe-Calc system locally in the Brave browser to import files.
+Comment[pt_BR]=Abre o sistema PJeCalc Cidadão localmente no navegador Brave para importação de arquivos.
+Comment[en]=Open the PJe-Calc system locally in the Brave browser to import files.
+Comment[es]=Abra el sistema PJe-Calc localmente en el navegador Brave para importar archivos.
+Comment[fr]=Ouvrez le système PJe-Calc localement dans le navigateur Brave pour importer des fichiers.
+
+Keywords=PJe-Calc;importar;dados;justiça;trabalho;
+Keywords[pt_BR]=PJe-Calc;importar;dados;justiça;trabalho;
+Keywords[en]=PJe-Calc;import;data;justice;labor;
+Keywords[es]=PJe-Calc;importar;datos;justicia;trabajo;
+Keywords[fr]=PJe-Calc;importer;données;justice;travail;
+
+
+# Com suporte a todos os principais derivados do Chrome.
+
+# Exec=sh -c "URL='http://localhost:9257/pjecalc/pages/principal.jsf'; \
+# if command -v google-chrome >/dev/null 2>&1; then \
+#     google-chrome \"$URL\"; \
+# elif command -v chromium >/dev/null 2>&1; then \
+#     chromium \"$URL\"; \
+# elif command -v chromium-browser >/dev/null 2>&1; then \
+#     chromium-browser \"$URL\"; \
+# elif command -v brave-browser >/dev/null 2>&1; then \
+#     brave-browser \"$URL\"; \
+# elif command -v vivaldi >/dev/null 2>&1; then \
+#     vivaldi \"$URL\"; \
+# elif command -v microsoft-edge >/dev/null 2>&1; then \
+#     microsoft-edge \"$URL\"; \
+# else \
+#     echo 'Nenhum navegador compatível encontrado.'; \
+# fi"
+
+Exec=brave-browser http://localhost:9257/pjecalc/pages/principal.jsf
+    
+Icon=web-browser
+Terminal=false
+Categories=Network;WebBrowser;
+
+
+Actions=SoftwareRender;
+
+[Desktop Action SoftwareRender]
+Name=Software Render
+Exec=SoftwareRender sh -c "URL='http://localhost:9257/pjecalc/pages/principal.jsf'; \

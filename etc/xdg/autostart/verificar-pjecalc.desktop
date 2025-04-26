@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Verificar atualização do PJeCalc Cidadão
+Comment=Script para verificar e notificar sobre atualização do PJeCalc Cidadão.
+Exec=/usr/local/bin/verificar_versao_pjecalc.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+RunHook=0
+
